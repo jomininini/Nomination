@@ -14,13 +14,13 @@ st.markdown(
             """,
             unsafe_allow_html=True,
         )
-
-Key_words = st.sidebar.text_input("Please input the key words:")
-Top_key = st.sidebar.number_input("Please input the top number:", min_value=1)
 # Sidebar inputs
 apikey = st.sidebar.text_input("Please input the API_KEY:", type='password')
 # Set the environment variable
 os.environ['OPENAI_API_KEY'] = apikey
+Key_words = st.sidebar.text_input("Please input the key words:")
+Top_key = st.sidebar.number_input("Please input the top number:", min_value=1)
+
 # Columns to select for display
 columns = ['cluster', 'cluster_TC', 'cluster_SC', 'telephone', 'fax', 'email',
        'name_EN', 'website', 'INFO', 'SUMMAR', 'PRIMARY', 'SUB', 'address_EN',
