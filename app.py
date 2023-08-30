@@ -1,14 +1,11 @@
 import streamlit as st
 import pandas as pd
 import os
+from apikey import apikey
 from langchain.vectorstores import FAISS
 from langchain.document_loaders import TextLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
-
-
-# Set the environment variable
-os.environ['OPENAI_API_KEY'] = apikey
 
 st.set_page_config(layout="wide", page_icon="💬", page_title="HKSTP🤖")
 
@@ -18,12 +15,14 @@ st.markdown(
             """,
             unsafe_allow_html=True,
         )
-
 # Preload data and settings
 db = FAISS.load_local("faiss_index",OpenAIEmbeddings())
 df = pd.read_csv("HKSTP_Company.csv")
 
 # Sidebar inputs
+apikey = st.sidebar.text_input("Please input the API_KEY:", type='password')
+# Set the environment variable
+os.environ['OPENAI_API_KEY'] = apikey
 Key_words = st.sidebar.text_input("Please input the key words:")
 Top_key = st.sidebar.number_input("Please input the top number:", min_value=1)
 
