@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-from apikey import apikey
 from langchain.vectorstores import FAISS
 from langchain.document_loaders import TextLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
