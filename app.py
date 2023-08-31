@@ -16,8 +16,7 @@ st.markdown(
         )
 # Sidebar inputs
 apikey = st.sidebar.text_input("Please input the API_KEY:", type='password')
-# Set the environment variable
-os.environ['OPENAI_API_KEY'] = apikey
+df = pd.read_csv("HKSTP_Company.csv")
 Key_words = st.sidebar.text_input("Please input the key words:")
 Top_key = st.sidebar.number_input("Please input the top number:", min_value=1)
 
@@ -30,15 +29,14 @@ columns = ['cluster', 'cluster_TC', 'cluster_SC', 'telephone', 'fax', 'email',
 all_columns = ['name_EN','introduction_EN', 'product_EN','website',]  # Add all columns you might want to display
 columns_to_display = st.sidebar.multiselect("Select columns to display:", columns, default=all_columns)
 
-if Key_words:
+if apikey:
+    # Set the environment variable
+    os.environ['OPENAI_API_KEY'] = apikey
     # Preload data and settings
     db = FAISS.load_local("faiss_index",OpenAIEmbeddings())
-    df = pd.read_csv("HKSTP_Company.csv")
-   
     # Initialize retriever
-    retriever = db.as_retriever(search_kwargs={"k": Top_key})
-   
-            
+    retriever = db.as_retriever(search_kwargs={"k": Top_key})      
+if Key_words:       
     row = []
     docs = retriever.get_relevant_documents(Key_words)
     
